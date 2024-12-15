@@ -69,7 +69,7 @@ with open("./videos_words_times_final_2.json", "r", encoding="utf-8") as file:
 
 words = {}
 
-palavras_selecionadas = open("./lista-palavras/76-palavras-selecionadas.txt", "r", encoding="utf-8")
+palavras_selecionadas = open("./lista-palavras/50-selected-words.txt", "r", encoding="utf-8")
 for palavra in palavras_selecionadas:
     p = remove_accents(palavra.lower().replace('\n', ''))    
     for i in range(3):

@@ -75,7 +75,7 @@ For example for the sign "abacaxi" with the interpreter 2, the name of the video
 ## Augmentation videos
 In addition to V-Librasil videos, we produce augmentation videos. We use [Vidaug](https://github.com/okankop/vidaug) Library to create these videos.
 
-We use only this videos augmentations:
+We use only this type of videos augmentations:
 - upsample
 - downsample
 - horizontal-flip
@@ -98,8 +98,39 @@ For extract the features of the videos we use the [i3D features](https://v-iashi
 We extract the features for each videos using the parameters **stack_size=10** and **step_size=10**
 
 ## Creating sentences
-From the signs of the videos we create sentences to train our model. 
+For create the sentences, we use a list of selected words. You can use our list in the file 50-selected-words.txt
+
+We classified the classes of the words and we create the sentence following this pattern:
+
+Noun + Adjective + Verb + Adverb
+
+You will note that in the list we use a tag to represent the class of the word. The meaning of the tags are:
+
+- v: Verb
+- n: Noun
+- a: Adjective
+- r: Adverb
+
+You can use the file create_sentences_by_preselected_words.py to create the sentences.
+
 
 ## Concatenating features
-We extract the features from the individuals videos
+After the sentences were created, we concatenated the individual videos of the words that composed the sentences. For instance, consider a sentence such as:
 
+- Cachorro Bonito Gostar Muito
+
+We took the features extracted from the videos that comprise this sentence and concatenated them to form the feature representation of the sentence. For example:
+
+- 0-cachorro.mp4
+- 0-bonito.mp4
+- 0-gostar.mp4
+- 0-muito.mp4
+
+```
+    Feature sentence = 0-cachorro.feature + 0-bonito.feature + 0-gostar.feature + 0-muito.feature
+```
+
+To concatenate the features, we used the script **concat_features_files.py**.
+
+## Training
+For training, we use the [BMT](https://github.com/v-iashin/BMT)
